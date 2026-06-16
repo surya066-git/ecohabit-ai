@@ -1,0 +1,30 @@
+{
+  "name": "ecohabit-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready Carbon Footprint Awareness Platform monorepo.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w @ecohabit/api\" \"npm run dev -w @ecohabit/web\"",
+    "dev:api": "npm run dev -w @ecohabit/api",
+    "dev:web": "npm run dev -w @ecohabit/web",
+    "build": "npm run build -w @ecohabit/shared && npm run build -w @ecohabit/api && npm run build -w @ecohabit/web",
+    "lint": "npm run lint -w @ecohabit/api && npm run lint -w @ecohabit/web",
+    "test": "npm run test -w @ecohabit/shared && npm run test -w @ecohabit/api",
+    "typecheck": "npm run typecheck -w @ecohabit/shared && npm run typecheck -w @ecohabit/api && npm run typecheck -w @ecohabit/web",
+    "format": "prettier --write ."
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.61.1",
+    "concurrently": "^9.2.1",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  }
+}

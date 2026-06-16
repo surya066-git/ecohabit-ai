@@ -1,4 +1,4 @@
-import { Schema, model, models, type InferSchemaType, type Model } from "mongoose";
+import mongoose, { Schema, model, type InferSchemaType, type Model } from "mongoose";
 
 const habitLogSchema = new Schema(
   {
@@ -34,5 +34,5 @@ habitSchema.index({ firebaseUid: 1, archivedAt: 1 });
 export type HabitDocument = InferSchemaType<typeof habitSchema>;
 
 export const Habit =
-  (models.Habit as Model<HabitDocument> | undefined) ??
+  (mongoose.models.Habit as Model<HabitDocument> | undefined) ??
   model<HabitDocument>("Habit", habitSchema);

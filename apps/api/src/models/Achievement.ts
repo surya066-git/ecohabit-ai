@@ -1,4 +1,4 @@
-import { Schema, model, models, type InferSchemaType, type Model } from "mongoose";
+import mongoose, { Schema, model, type InferSchemaType, type Model } from "mongoose";
 
 const achievementSchema = new Schema(
   {
@@ -17,5 +17,5 @@ achievementSchema.index({ firebaseUid: 1, key: 1 }, { unique: true });
 export type AchievementDocument = InferSchemaType<typeof achievementSchema>;
 
 export const Achievement =
-  (models.Achievement as Model<AchievementDocument> | undefined) ??
+  (mongoose.models.Achievement as Model<AchievementDocument> | undefined) ??
   model<AchievementDocument>("Achievement", achievementSchema);

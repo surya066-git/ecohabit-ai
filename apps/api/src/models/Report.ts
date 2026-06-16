@@ -1,4 +1,4 @@
-import { Schema, model, models, type InferSchemaType, type Model } from "mongoose";
+import mongoose, { Schema, model, type InferSchemaType, type Model } from "mongoose";
 
 const reportSchema = new Schema(
   {
@@ -26,5 +26,5 @@ reportSchema.index({ firebaseUid: 1, period: 1, periodStart: -1 });
 export type ReportDocument = InferSchemaType<typeof reportSchema>;
 
 export const Report =
-  (models.Report as Model<ReportDocument> | undefined) ??
+  (mongoose.models.Report as Model<ReportDocument> | undefined) ??
   model<ReportDocument>("Report", reportSchema);

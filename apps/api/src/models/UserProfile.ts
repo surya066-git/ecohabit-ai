@@ -1,4 +1,4 @@
-import { Schema, model, models, type InferSchemaType, type Model } from "mongoose";
+import mongoose, { Schema, model, type InferSchemaType, type Model } from "mongoose";
 
 const userPreferencesSchema = new Schema(
   {
@@ -32,5 +32,5 @@ const userProfileSchema = new Schema(
 export type UserProfileDocument = InferSchemaType<typeof userProfileSchema>;
 
 export const UserProfile =
-  (models.UserProfile as Model<UserProfileDocument> | undefined) ??
+  (mongoose.models.UserProfile as Model<UserProfileDocument> | undefined) ??
   model<UserProfileDocument>("UserProfile", userProfileSchema);

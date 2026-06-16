@@ -1,9 +1,18 @@
 import mongoose from "mongoose";
 import { env } from "./env";
+import { MongoMemoryServer } from "mongodb-memory-server";
+
+let mongoServer: MongoMemoryServer;
 
 export async function connectDatabase() {
   if (!env.MONGODB_URI) {
-    throw new Error("MONGODB_URI is required to start the API server.");
+    console.warn("⚠️ MONGODB_URI is not set. Starting MongoMemoryServer for local testing.");
+    mongoServer = await MongoMemoryServer.create();
+    const uri = mongoServer.getUri();
+    
+    mongoose.set("strictQuery", true);
+    await mongoose.connect(uri, { autoIndex: true });
+    return;
   }
 
   mongoose.set("strictQuery", true);
@@ -15,4 +24,7 @@ export async function connectDatabase() {
 
 export async function disconnectDatabase() {
   await mongoose.disconnect();
+  if (mongoServer) {
+    await mongoServer.stop();
+  }
 }

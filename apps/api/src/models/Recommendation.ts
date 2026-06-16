@@ -1,4 +1,4 @@
-import { Schema, model, models, type InferSchemaType, type Model } from "mongoose";
+import mongoose, { Schema, model, type InferSchemaType, type Model } from "mongoose";
 
 const recommendationSchema = new Schema(
   {
@@ -25,5 +25,5 @@ recommendationSchema.index({ firebaseUid: 1, createdAt: -1 });
 export type RecommendationDocument = InferSchemaType<typeof recommendationSchema>;
 
 export const Recommendation =
-  (models.Recommendation as Model<RecommendationDocument> | undefined) ??
+  (mongoose.models.Recommendation as Model<RecommendationDocument> | undefined) ??
   model<RecommendationDocument>("Recommendation", recommendationSchema);

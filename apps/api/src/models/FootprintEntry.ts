@@ -1,4 +1,4 @@
-import { Schema, model, models, type InferSchemaType, type Model } from "mongoose";
+import mongoose, { Schema, model, type InferSchemaType, type Model } from "mongoose";
 
 const footprintEntrySchema = new Schema(
   {
@@ -23,5 +23,5 @@ footprintEntrySchema.index({ firebaseUid: 1, periodStart: -1 });
 export type FootprintEntryDocument = InferSchemaType<typeof footprintEntrySchema>;
 
 export const FootprintEntry =
-  (models.FootprintEntry as Model<FootprintEntryDocument> | undefined) ??
+  (mongoose.models.FootprintEntry as Model<FootprintEntryDocument> | undefined) ??
   model<FootprintEntryDocument>("FootprintEntry", footprintEntrySchema);

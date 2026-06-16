@@ -1,7 +1,7 @@
 "use client";
 
 import { BarChart3, Loader2, RefreshCw } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   Bar,
   BarChart,

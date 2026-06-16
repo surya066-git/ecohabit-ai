@@ -32,19 +32,22 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
+const mockUser = { uid: "mock-user-123", email: "mock@example.com", displayName: "Mock User", getIdToken: async () => "mock-token" } as unknown as User;
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   const isMockMode = !process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
-  const mockUser = { uid: "mock-user-123", email: "mock@example.com", displayName: "Mock User", getIdToken: async () => "mock-token" } as unknown as User;
 
   useEffect(() => {
     if (isMockMode) {
-      if (localStorage.getItem("mock_logged_in") === "true") {
-        setUser(mockUser);
-      }
-      setLoading(false);
+      setTimeout(() => {
+        if (localStorage.getItem("mock_logged_in") === "true") {
+          setUser(mockUser);
+        }
+        setLoading(false);
+      }, 0);
       return () => {};
     }
     return onAuthStateChanged(auth, (nextUser: User | null) => {

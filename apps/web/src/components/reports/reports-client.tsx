@@ -53,19 +53,23 @@ export function ReportsClient() {
   const [reports, setReports] = useState<Report[]>(demoReports);
   const [loading, setLoading] = useState(false);
 
-  async function loadReports(nextPeriod = period) {
-    try {
-      const token = await getIdToken();
-      const response = await apiFetch<{ reports: Report[] }>(`/reports?period=${nextPeriod}`, token);
-      setReports(response.reports.length ? response.reports : demoReports);
-    } catch {
-      setReports(demoReports);
-    }
-  }
+  const loadReports = useCallback(
+    async (nextPeriod = period) => {
+      try {
+        const token = await getIdToken();
+        const response = await apiFetch<{ reports: Report[] }>(`/reports?period=${nextPeriod}`, token);
+        setReports(response.reports.length ? response.reports : demoReports);
+      } catch {
+        setReports(demoReports);
+      }
+    },
+    [getIdToken, period]
+  );
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     void loadReports(period);
-  }, [period]);
+  }, [period, loadReports]);
 
   async function handleGenerate() {
     setLoading(true);

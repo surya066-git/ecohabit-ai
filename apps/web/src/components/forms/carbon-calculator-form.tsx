@@ -107,7 +107,7 @@ export function CarbonCalculatorForm() {
     setInput((current) => ({
       ...current,
       [section]: {
-        ...(current[section] as any),
+        ...(current[section] as Record<string, number>),
         [key]: Number(value)
       }
     }));
